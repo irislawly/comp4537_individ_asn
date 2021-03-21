@@ -1,0 +1,43 @@
+body {
+    
+    background-color: powderblue;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+.choiceHead {
+    font-size: 15px;
+}
+
+
+
+.radButton {
+    width: 1.3em;
+    height: 1.3em;
+    margin: 10px;
+}
+
+.choiceTextArea{
+
+    height: 40px;
+    width: 250px;
+}
+ .classTextArea {
+    margin: 10px;
+    height: 50px;
+    width: 300px;
+}
+.question {
+    font-weight: bold;
+}
+
+.questionNo {
+    color: darkblue;
+    font-weight: bold;
+}
+

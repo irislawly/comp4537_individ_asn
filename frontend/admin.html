@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" href="css/admin.css">
+    <title>Admin Side</title>
+</head>
+
+<body onload="load()">
+
+    <div id="backButton">
+        <a class="btn" href="index.html" role="button">Back</a>
+    </div>
+
+    <div id="fullDiv">
+
+            <div id="quizDiv"></div>
+                    <button id="addButton" class="btn" onclick="addQuest()">Add Question</button>
+                    <button id="addAnswer" class="btn " onclick="addChoice()">[ + ] Answer</button>
+                    <button id="removeAnswer" class="btn" onclick="removeChoice()">[ - ]
+                        Answer</button>
+              
+                    <button id="saveButton" class="btn" onclick="updateObject()">Update</button>
+               
+                </div>
+
+        </div>
+    </div>
+
+
+    <!-- the link to the javascript -->
+    <script src="js/admin.js"></script>
+
+</body>
+
+</html>

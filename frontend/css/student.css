@@ -1,0 +1,53 @@
+body {
+    background-color: powderblue;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+
+#fullDiv {
+    width: 90%;
+}
+
+.choiceHead {
+    font-size: 15px;
+}
+
+
+#displayScore {
+    font-size: 20pt;
+    font-weight: bold;
+    margin: 20px;
+    margin-left: 190px;
+}
+.radButton {
+    height: 1.3em;
+    width: 1.3em;
+    margin: 10px;
+}
+
+.choiceTextArea{
+
+    height: 40px;
+    width: 250px;
+}
+ .classTextArea {
+    margin: 10px;
+    height: 50px;
+    width: 300px;
+}
+
+.question {
+    font-weight: bold;
+}
+
+.questionNo {
+    color: darkblue;
+    font-weight: bold;
+}
