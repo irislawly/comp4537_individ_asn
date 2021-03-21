@@ -1,5 +1,3 @@
-
-
 const xhttp = new XMLHttpRequest();
 const endPointRoot = "https://www.irislawcst.com/COMP4537/labs/assignment/"
 
@@ -18,25 +16,25 @@ let onloadData = false;
 
 
 function load() {
-   
+
     getAllQuestions();
-    setTimeout(function(){
-        if(questionsArray != null && questionsArray.length > 0){
+    setTimeout(function () {
+        if (questionsArray != null && questionsArray.length > 0) {
             onloadData = true;
             let counter = questionsArray.length;
             count = 1;
 
-            while(count <= counter){
-      
+            while (count <= counter) {
+
                 addQuestion();
 
-                if(Object.keys(questionsArray[count - 2]).length === 6){
-               
+                if (Object.keys(questionsArray[count - 2]).length === 6) {
+
                     onloadData = false;
                     addChoice();
                     onloadData = true;
 
-                }else if(Object.keys(questionsArray[count - 2]).length === 7){
+                } else if (Object.keys(questionsArray[count - 2]).length === 7) {
                     onloadData = false;
                     addChoice();
                     addChoice();
@@ -47,67 +45,67 @@ function load() {
 
             templateStatus = false;
         }
-    },3000);
+    }, 3000);
 }
 
 
 function loadQuestions(qSize, jsonObjArr) {
 
     for (i = 1; i <= qSize; i++) {
-        
+
         let j = i - 1;
 
         let questionTextArea = "question" + i + "TextArea";
         document.getElementById(questionTextArea).value = jsonObjArr[j].question;
 
-        if(Object.keys(jsonObjArr[j]).length === 7){
+        if (Object.keys(jsonObjArr[j]).length === 7) {
             let numOfChoices = 4;
 
             for (k = 1; k <= numOfChoices; k++) {
- 
+
                 let choiceTextAreas = "question" + i + "choiceTextArea" + k;
                 let choiceRadioButton = "question" + i + "choice" + k;
 
                 if (k == 1) {
                     document.getElementById(choiceTextAreas).value = jsonObjArr[j].choice1;
                     if (jsonObjArr[j].choice1 == jsonObjArr[j].answer) {
-          
+
                         document.getElementById(choiceRadioButton).checked = true;
                     }
-         
+
                 } else if (k == 2) {
-                  
+
                     document.getElementById(choiceTextAreas).value = jsonObjArr[j].choice2;
 
                     if (jsonObjArr[j].choice2 == jsonObjArr[j].answer) {
-                
+
                         document.getElementById(choiceRadioButton).checked = true;
                     }
-         
+
                 } else if (k == 3) {
                     document.getElementById(choiceTextAreas).value = jsonObjArr[j].choice3;
                     if (jsonObjArr[j].choice3 == jsonObjArr[j].answer) {
-   
+
                         document.getElementById(choiceRadioButton).checked = true;
                     }
-        
+
                 } else if (k == 4) {
-            
+
                     document.getElementById(choiceTextAreas).value = jsonObjArr[j].choice4;
 
-               
+
                     if (jsonObjArr[j].choice4 == jsonObjArr[j].answer) {
-                 
+
                         document.getElementById(choiceRadioButton).checked = true;
                     }
                 }
             }
 
-        }else if(Object.keys(jsonObjArr[j]).length === 6){
-            
+        } else if (Object.keys(jsonObjArr[j]).length === 6) {
+
 
             let numOfChoices = 3;
- 
+
             for (k = 1; k <= numOfChoices; k++) {
                 let choiceTextAreas = "question" + i + "choiceTextArea" + k;
                 let choiceRadioButton = "question" + i + "choice" + k;
@@ -124,38 +122,38 @@ function loadQuestions(qSize, jsonObjArr) {
 
 
                     if (jsonObjArr[j].choice2 == jsonObjArr[j].answer) {
-            
+
                         document.getElementById(choiceRadioButton).checked = true;
                     }
 
                 } else if (k == 3) {
                     document.getElementById(choiceTextAreas).value = jsonObjArr[j].choice3;
                     if (jsonObjArr[j].choice3 == jsonObjArr[j].answer) {
-                
+
                         document.getElementById(choiceRadioButton).checked = true;
                     }
                 }
             }
 
-        }else if (Object.keys(jsonObjArr[j]).length === 5){
-    
+        } else if (Object.keys(jsonObjArr[j]).length === 5) {
+
             let numOfChoices = 2;
-     
+
             for (k = 1; k <= numOfChoices; k++) {
                 let choiceTextAreas = "question" + i + "choiceTextArea" + k;
                 let choiceRadioButton = "question" + i + "choice" + k;
                 if (k == 1) {
-                    document.getElementById(choiceTextAreas).value = jsonObjArr[j].choice1;   
+                    document.getElementById(choiceTextAreas).value = jsonObjArr[j].choice1;
                     if (jsonObjArr[j].choice1 == jsonObjArr[j].answer) {
-             
-                        document.getElementById(choiceRadioButton).checked = true;
-                    }    
-                }else if (k == 2) {
-                    document.getElementById(choiceTextAreas).value = jsonObjArr[j].choice2;              
-                    if (jsonObjArr[j].choice2 == jsonObjArr[j].answer) {       
+
                         document.getElementById(choiceRadioButton).checked = true;
                     }
-                } 
+                } else if (k == 2) {
+                    document.getElementById(choiceTextAreas).value = jsonObjArr[j].choice2;
+                    if (jsonObjArr[j].choice2 == jsonObjArr[j].answer) {
+                        document.getElementById(choiceRadioButton).checked = true;
+                    }
+                }
             }
         }
     }
@@ -169,8 +167,8 @@ function addQuest() {
     }
 
     addQuestion();
-    if(onloadData === false){
-        storeObject();    
+    if (onloadData === false) {
+        storeObject();
     }
     onloadData = false;
 }
@@ -183,43 +181,43 @@ function push() {
     let quest = "";
 
 
-    if (count > 1) {      
-        for (let ind = 1; ind < optionCount; ind++) {        
+    if (count > 1) {
+        for (let ind = 1; ind < optionCount; ind++) {
             idRadButt = "question" + (count - 1) + "choice" + ind;
-  
-            if (document.getElementById(idRadButt).checked) {               
+
+            if (document.getElementById(idRadButt).checked) {
                 idSelectChoice = "question" + (count - 1) + "choiceTextArea" + ind;
                 document.getElementById(idRadButt).setAttribute('value', document.getElementById(idSelectChoice).value);
             }
         }
 
         //for 2 answers
-        if(optionCount === 3){
+        if (optionCount === 3) {
             quest = {
-            
+
                 index: (count - 1),
-           
+
                 question: document.getElementById('question' + (count - 1) + 'TextArea').value,
                 choice1: document.getElementById('question' + (count - 1) + 'choiceTextArea1').value,
                 choice2: document.getElementById('question' + (count - 1) + 'choiceTextArea2').value,
                 answer: document.getElementById(idSelectChoice).value
             };
 
-        //for 3 answers
-        }else if(optionCount === 4){
+            //for 3 answers
+        } else if (optionCount === 4) {
 
             quest = {
-    
+
                 index: (count - 1),
-            
+
                 question: document.getElementById('question' + (count - 1) + 'TextArea').value,
-                choice1: document.getElementById('question' + (count - 1) + 'choiceTextArea1').value,          
-                choice2: document.getElementById('question' + (count - 1) + 'choiceTextArea2').value,       
+                choice1: document.getElementById('question' + (count - 1) + 'choiceTextArea1').value,
+                choice2: document.getElementById('question' + (count - 1) + 'choiceTextArea2').value,
                 choice3: document.getElementById('question' + (count - 1) + 'choiceTextArea3').value,
                 answer: document.getElementById(idSelectChoice).value
             };
-        //for 4 answers
-        }else if (optionCount === 5){
+            //for 4 answers
+        } else if (optionCount === 5) {
             quest = {
                 index: (count - 1),
                 question: document.getElementById('question' + (count - 1) + 'TextArea').value,
@@ -253,7 +251,7 @@ function addQuestion() {
     questionDiv.setAttribute('id', 'containerquestion' + count);
     let para = document.createElement("p");
     let questionCount = "Question " + count;
- 
+
     let nodeP = document.createTextNode(questionCount);
     para.appendChild(nodeP);
 
@@ -265,7 +263,7 @@ function addQuestion() {
     let idTextArea = "question" + count + "TextArea";
 
     questionBodyTextArea.setAttribute("id", idTextArea);
-    questionBodyTextArea.setAttribute("class", "classTextArea");
+    questionBodyTextArea.setAttribute("class", "questTextArea");
 
     let para2 = document.createElement("p");
 
@@ -311,7 +309,7 @@ Store object into database.
 */
 function storeObject() {
     if (count >= 1) {
-        for(let ind = 0; ind < questionsArray.length; ind++){
+        for (let ind = 0; ind < questionsArray.length; ind++) {
             xhttp.open(POST, endPointRoot + "question", true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.send(JSON.stringify(questionsArray[ind]));
@@ -334,15 +332,15 @@ function getAllQuestions() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             let q = new Promise((resolve, reject) => {
-                if(JSON.parse(this.responseText).length > 0){
+                if (JSON.parse(this.responseText).length > 0) {
                     resolve(JSON.parse(this.responseText));
-                }else{
+                } else {
                     reject('');
-                }   
+                }
             })
-            q.then((dbQuestions) =>{                   
+            q.then((dbQuestions) => {
                 console.log('Retrieved');
-                for(let ind = 0; ind < dbQuestions.length; ind++){   
+                for (let ind = 0; ind < dbQuestions.length; ind++) {
                     questionsArray.push(dbQuestions[ind]);
                 }
             }).catch((dbQuestions) => {
@@ -355,12 +353,12 @@ function getAllQuestions() {
 /**
  * Adds another choice to the question.
  */
-function addChoice(){
-    if(onloadData === false){
+function addChoice() {
+    if (onloadData === false) {
         tempCount = (count - 1);
         unordList = document.getElementById("choiceDiv" + tempCount);
         let radioButtonNames = "question" + tempCount;
-        if(optionCount === 3){
+        if (optionCount === 3) {
             let list = document.createElement('li');
             list.setAttribute('id', "question" + tempCount + "licontainer" + optionCount);
             let radInput = document.createElement('input');
@@ -369,68 +367,68 @@ function addChoice(){
             let idRadButtInput = "question" + tempCount + "choice" + optionCount;
             radInput.setAttribute('id', idRadButtInput);
             radInput.setAttribute('class', "radButton");
-  
+
             list.appendChild(radInput);
             unordList.appendChild(list);
 
             let listDiv = document.getElementById(idRadButtInput).parentNode;
             let choiceTextArea = document.createElement("TEXTAREA");
             listDiv.appendChild(choiceTextArea);
-            idTextArea = "question" + tempCount + "choiceTextArea" + optionCount; 
+            idTextArea = "question" + tempCount + "choiceTextArea" + optionCount;
             choiceTextArea.setAttribute('id', idTextArea);
             choiceTextArea.setAttribute('class', 'choiceTextArea');
             optionCount++;
 
-        }else if(optionCount === 4){
-        
+        } else if (optionCount === 4) {
+
             let list = document.createElement('li');
             list.setAttribute('id', "question" + tempCount + "licontainer" + optionCount);
 
             let radInput = document.createElement('input');
             radInput.setAttribute('type', 'radio');
-           radInput.setAttribute('name', radioButtonNames);
+            radInput.setAttribute('name', radioButtonNames);
 
             let idRadButtInput = "question" + tempCount + "choice" + optionCount;
-            radInput.setAttribute('id', idRadButtInput);     
+            radInput.setAttribute('id', idRadButtInput);
             radInput.setAttribute('class', "radButton");
-        
-            list.appendChild(radInput);     
+
+            list.appendChild(radInput);
             unordList.appendChild(list);
 
             let listDiv = document.getElementById(idRadButtInput).parentNode;
             let choiceTextArea = document.createElement("TEXTAREA");
 
             listDiv.appendChild(choiceTextArea);
-      
+
             idTextArea = "question" + tempCount + "choiceTextArea" + optionCount;
-         
-            choiceTextArea.setAttribute('id', idTextArea);       
+
+            choiceTextArea.setAttribute('id', idTextArea);
             choiceTextArea.setAttribute('class', 'choiceTextArea');
             optionCount++;
         }
-    }    
+    }
 }
 
 
 /**
  * Removes a choice in a question.
  */
-function removeChoice(){
-    
+function removeChoice() {
+
     //if the page did not onload
-    if(onloadData === false){
+    if (onloadData === false) {
         let tempCount = (count - 1);
         let tempOptionCount = (optionCount - 1);
         let lastAnswerLiContainer = "";
-        
+
         //if there is currently 3 option choices remove 1, you will now have 2 option choices remaining
-        if(optionCount === 4){
-            lastAnswerLiContainer = document.getElementById("question"+tempCount+"licontainer"+tempOptionCount);
+        if (optionCount === 4) {
+            lastAnswerLiContainer = document.getElementById("question" + tempCount + "licontainer" + tempOptionCount);
             lastAnswerLiContainer.parentNode.removeChild(lastAnswerLiContainer);
             optionCount--;
-        //if there is currently 4 option choices remove 1, you will now have 3 option choices remaining
-        }else if(optionCount === 5){
-            lastAnswerLiContainer = document.getElementById("question"+tempCount+"licontainer"+tempOptionCount);
+            //if there is currently 4 option choices remove 1, you will now have 3 option choices remaining
+        } else if (optionCount === 5) {
+            lastAnswerLiContainer = document.getElementById("question" + tempCount + "licontainer" + tempOptionCount);
             lastAnswerLiContainer.parentNode.removeChild(lastAnswerLiContainer);
             optionCount--;
         }
@@ -447,35 +445,35 @@ function updateObject() {
     let quest = "";
     let placeholderArray = []
 
-    for(let ind = 0; ind < questionsArray.length; ind++){
+    for (let ind = 0; ind < questionsArray.length; ind++) {
         placeholderArray.push(Object.keys(questionsArray[ind]).length);
     }
 
- 
+
     let questionSize = questionsArray.length;
 
     while (questionsArray.length > 0) {
         questionsArray.pop();
     }
 
-    for (let ind = 0; ind < questionSize; ind++){
+    for (let ind = 0; ind < questionSize; ind++) {
         let questionSize = placeholderArray[ind];
-        if(questionSize === 7){
+        if (questionSize === 7) {
             optionCount = 4;
-        }else if(questionSize === 6){
+        } else if (questionSize === 6) {
             optionCount = 3;
-        }else if(questionSize === 5){
+        } else if (questionSize === 5) {
             optionCount = 2;
         }
-        
 
-        for(let ind2 = 1; ind2 <= optionCount; ind2++){
 
-    
+        for (let ind2 = 1; ind2 <= optionCount; ind2++) {
+
+
             idRadButt = "question" + (ind + 1) + "choice" + ind2;
 
-    
-            if(document.getElementById(idRadButt).checked) {
+
+            if (document.getElementById(idRadButt).checked) {
 
                 idSelectChoice = "question" + (ind + 1) + "choiceTextArea" + ind2;
 
@@ -484,38 +482,38 @@ function updateObject() {
         }
 
         //for 2 choices
-        if(optionCount === 2){
-            
+        if (optionCount === 2) {
+
             quest = {
-      
-                index: (ind + 1),           
-                question: document.getElementById('question' + (ind + 1) + 'TextArea').value,        
-                choice1: document.getElementById('question' + (ind + 1) + 'choiceTextArea1').value,        
-                choice2: document.getElementById('question' + (ind + 1) + 'choiceTextArea2').value,      
+
+                index: (ind + 1),
+                question: document.getElementById('question' + (ind + 1) + 'TextArea').value,
+                choice1: document.getElementById('question' + (ind + 1) + 'choiceTextArea1').value,
+                choice2: document.getElementById('question' + (ind + 1) + 'choiceTextArea2').value,
                 answer: document.getElementById(idSelectChoice).value
             };
 
-        //for 3 choices
-        }else if(optionCount === 3){
-         
+            //for 3 choices
+        } else if (optionCount === 3) {
+
             quest = {
-              
+
                 index: (ind + 1),
-                question: document.getElementById('question' + (ind + 1) + 'TextArea').value,             
+                question: document.getElementById('question' + (ind + 1) + 'TextArea').value,
                 choice1: document.getElementById('question' + (ind + 1) + 'choiceTextArea1').value,
-                choice2: document.getElementById('question' + (ind + 1) + 'choiceTextArea2').value,           
+                choice2: document.getElementById('question' + (ind + 1) + 'choiceTextArea2').value,
                 choice3: document.getElementById('question' + (ind + 1) + 'choiceTextArea3').value,
                 answer: document.getElementById(idSelectChoice).value
             };
 
-        //for 4 choices
-        }else if (optionCount === 4){
+            //for 4 choices
+        } else if (optionCount === 4) {
 
             quest = {
-            
+
                 index: (ind + 1),
                 question: document.getElementById('question' + (ind + 1) + 'TextArea').value,
-               choice1: document.getElementById('question' + (ind + 1) + 'choiceTextArea1').value,
+                choice1: document.getElementById('question' + (ind + 1) + 'choiceTextArea1').value,
                 choice2: document.getElementById('question' + (ind + 1) + 'choiceTextArea2').value,
                 choice3: document.getElementById('question' + (ind + 1) + 'choiceTextArea3').value,
                 choice4: document.getElementById('question' + (ind + 1) + 'choiceTextArea4').value,
@@ -526,19 +524,18 @@ function updateObject() {
     }
 
     /*
-    Created new xhttp objects for each put to database, would only send one without this implemented
+    Make sure to send one per new question
     */
-    let xhttpEACHNEW = [];
-    for(let ind = 0; ind < questionsArray.length; ind++){
-        xhttpEACHNEW[ind] = new XMLHttpRequest();
-        xhttpEACHNEW[ind].open(PUT, endPointRoot + "update", true);
-        xhttpEACHNEW[ind].setRequestHeader("Content-type", "application/json");
-        xhttpEACHNEW[ind].send(JSON.stringify(questionsArray[ind]));
-        xhttpEACHNEW[ind].onreadystatechange = function () {
+    let xhttpEach = [];
+    for (let ind = 0; ind < questionsArray.length; ind++) {
+        xhttpEach[ind] = new XMLHttpRequest();
+        xhttpEach[ind].open(PUT, endPointRoot + "update", true);
+        xhttpEach[ind].setRequestHeader("Content-type", "application/json");
+        xhttpEach[ind].send(JSON.stringify(questionsArray[ind]));
+        xhttpEach[ind].onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 console.log("Put on the client side is working");
             }
         };
     }
 }
-

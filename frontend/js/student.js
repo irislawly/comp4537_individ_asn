@@ -20,15 +20,15 @@ function getAllQuestions() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             let q = new Promise((resolve, reject) => {
-                if(JSON.parse(this.responseText).length > 0){
+                if (JSON.parse(this.responseText).length > 0) {
                     resolve(JSON.parse(this.responseText));
-                }else{
+                } else {
                     reject('Fail');
                 }
             })
-            q.then((dbQuestions) =>{                
+            q.then((dbQuestions) => {
                 console.log('Retrieved items');
-                for(let position = 0; position < dbQuestions.length; position++){
+                for (let position = 0; position < dbQuestions.length; position++) {
                     questionsArray.push(dbQuestions[position]);
                 }
             }).catch((dbQuestions) => {
@@ -43,11 +43,11 @@ function getAllQuestions() {
  */
 function check() {
     getAllQuestions();
-    setTimeout(function(){
-        
+    setTimeout(function () {
+
         arrayString = JSON.stringify(questionsArray);
         if (arrayString === null || questionsArray.length == 0) {
-          
+
             let parag = document.createElement("p");
             let para = document.createTextNode("No questions created.");
             parag.appendChild(para);
@@ -56,26 +56,26 @@ function check() {
 
         } else {
             load();
-        }  
-    },3000); 
+        }
+    }, 3000);
 }
 
 /*
 Loads questions to the page.
 */
 function load() {
-    
+
     let counter = questionsArray.length;
     count = 1;
-    while(count <= counter){
+    while (count <= counter) {
 
         addQuestion();
-        if(Object.keys(questionsArray[count - 2]).length === 6){               
+        if (Object.keys(questionsArray[count - 2]).length === 6) {
             addChoice();
-   
-        }else if(Object.keys(questionsArray[count - 2]).length === 7){   
+
+        } else if (Object.keys(questionsArray[count - 2]).length === 7) {
             addChoice();
-            addChoice();        
+            addChoice();
         }
     }
 
@@ -85,60 +85,60 @@ function load() {
 /**
  * Add new choice to a question.
  */
-function addChoice(){
-        tempCount = (count - 1);
-        unordList = document.getElementById("choiceDiv" + tempCount);
-        let radioButtonNames = "question" + tempCount;
-        if(optionCount === 3){
-        
-            let list = document.createElement('li');
-            list.setAttribute('id', "question" + tempCount + "licontainer" + optionCount);
+function addChoice() {
+    tempCount = (count - 1);
+    unordList = document.getElementById("choiceDiv" + tempCount);
+    let radioButtonNames = "question" + tempCount;
+    if (optionCount === 3) {
 
-            let radInput = document.createElement('input');
-            radInput.setAttribute('type', 'radio');
-            radInput.setAttribute('name', radioButtonNames);
+        let list = document.createElement('li');
+        list.setAttribute('id', "question" + tempCount + "licontainer" + optionCount);
 
-            let idRadioButtonInput = "question" + tempCount + "choice" + optionCount;
-            radInput.setAttribute('id', idRadioButtonInput);
-            radInput.setAttribute('class', "radButton");
-  
-            list.appendChild(radInput);
-            unordList.appendChild(list);
+        let radInput = document.createElement('input');
+        radInput.setAttribute('type', 'radio');
+        radInput.setAttribute('name', radioButtonNames);
 
-            let listDiv = document.getElementById(idRadioButtonInput).parentNode;    
-            let choiceTextArea = document.createElement("TEXTAREA");
-          listDiv.appendChild(choiceTextArea);
-          
-            idTextArea = "question" + tempCount + "choiceTextArea" + optionCount;
-            choiceTextArea.setAttribute('id', idTextArea);
-            choiceTextArea.setAttribute('class', 'choiceTextArea');
-            optionCount++;
+        let idRadioButtonInput = "question" + tempCount + "choice" + optionCount;
+        radInput.setAttribute('id', idRadioButtonInput);
+        radInput.setAttribute('class', "radButton");
 
-        }else if(optionCount === 4){
-            
-            let list = document.createElement('li');
-         list.setAttribute('id', "question" + tempCount + "licontainer" + optionCount);
+        list.appendChild(radInput);
+        unordList.appendChild(list);
 
-            let radInput = document.createElement('input');
-            radInput.setAttribute('type', 'radio');
-            radInput.setAttribute('name', radioButtonNames);
+        let listDiv = document.getElementById(idRadioButtonInput).parentNode;
+        let choiceTextArea = document.createElement("TEXTAREA");
+        listDiv.appendChild(choiceTextArea);
 
-            let idRadioButtonInput = "question" + tempCount + "choice" + optionCount;
-            radInput.setAttribute('id', idRadioButtonInput);
-            radInput.setAttribute('class', "radButton");
+        idTextArea = "question" + tempCount + "choiceTextArea" + optionCount;
+        choiceTextArea.setAttribute('id', idTextArea);
+        choiceTextArea.setAttribute('class', 'choiceTextArea');
+        optionCount++;
 
-            list.appendChild(radInput);
-            unordList.appendChild(list);
-            let listDiv = document.getElementById(idRadioButtonInput).parentNode;
-            let choiceTextArea = document.createElement("TEXTAREA");
-            listDiv.appendChild(choiceTextArea);
-            idTextArea = "question" + tempCount + "choiceTextArea" + optionCount;
-            choiceTextArea.setAttribute('id', idTextArea);
-    
-            choiceTextArea.setAttribute('class', 'choiceTextArea');
+    } else if (optionCount === 4) {
 
-            optionCount++;
-        }
+        let list = document.createElement('li');
+        list.setAttribute('id', "question" + tempCount + "licontainer" + optionCount);
+
+        let radInput = document.createElement('input');
+        radInput.setAttribute('type', 'radio');
+        radInput.setAttribute('name', radioButtonNames);
+
+        let idRadioButtonInput = "question" + tempCount + "choice" + optionCount;
+        radInput.setAttribute('id', idRadioButtonInput);
+        radInput.setAttribute('class', "radButton");
+
+        list.appendChild(radInput);
+        unordList.appendChild(list);
+        let listDiv = document.getElementById(idRadioButtonInput).parentNode;
+        let choiceTextArea = document.createElement("TEXTAREA");
+        listDiv.appendChild(choiceTextArea);
+        idTextArea = "question" + tempCount + "choiceTextArea" + optionCount;
+        choiceTextArea.setAttribute('id', idTextArea);
+
+        choiceTextArea.setAttribute('class', 'choiceTextArea');
+
+        optionCount++;
+    }
 }
 
 /**
@@ -171,7 +171,7 @@ function addQuestion() {
     let idTextArea = "question" + count + "TextArea";
 
     questionBodyTextArea.setAttribute("id", idTextArea);
-    questionBodyTextArea.setAttribute("class", "classTextArea");
+    questionBodyTextArea.setAttribute("class", "questTextArea");
 
 
     let parag2 = document.createElement("p");
@@ -184,27 +184,27 @@ function addQuestion() {
     questionDiv.appendChild(unordList);
     unordList.setAttribute('id', 'choiceDiv' + count);
     let radioButtonNames = "question" + count;
- 
+
     for (let position = 1; position <= 2; position++) {
         optionCount++;
-   
+
         let list = document.createElement('li');
- 
+
         let radInput = document.createElement('input');
-        radInput.setAttribute('type', 'radio');   
+        radInput.setAttribute('type', 'radio');
         radInput.setAttribute('name', radioButtonNames);
-      
+
         let idRadioButtonInput = "question" + count + "choice" + position;
         radInput.setAttribute('id', idRadioButtonInput);
         radInput.setAttribute('class', "radButton");
- 
+
         list.appendChild(radInput);
-unordList.appendChild(list);
-list.setAttribute('id', "question" + count + "licontainer" + position);
+        unordList.appendChild(list);
+        list.setAttribute('id', "question" + count + "licontainer" + position);
 
         let listDiv = document.getElementById(idRadioButtonInput).parentNode;
         let choiceTextArea = document.createElement("TEXTAREA");
- listDiv.appendChild(choiceTextArea);
+        listDiv.appendChild(choiceTextArea);
 
         idTextArea = "question" + count + "choiceTextArea" + position;
         choiceTextArea.setAttribute('id', idTextArea);
@@ -220,18 +220,18 @@ list.setAttribute('id', "question" + count + "licontainer" + position);
 function loadQuestions(qSize, jsonObjArr) {
 
     for (i = 1; i <= qSize; i++) {
-        
+
         let j = i - 1;
         let questionTextArea = "question" + i + "TextArea";
         document.getElementById(questionTextArea).value = jsonObjArr[j].question;
         disableTextArea(questionTextArea);
-        if(Object.keys(jsonObjArr[j]).length === 7){
+        if (Object.keys(jsonObjArr[j]).length === 7) {
             let numOfChoices = 4;
-        
+
             for (k = 1; k <= numOfChoices; k++) {
-            
+
                 let choiceTextAreas = "question" + i + "choiceTextArea" + k;
-                
+
                 if (k == 1) {
                     document.getElementById(choiceTextAreas).value = jsonObjArr[j].choice1;
 
@@ -241,49 +241,49 @@ function loadQuestions(qSize, jsonObjArr) {
                 } else if (k == 3) {
                     document.getElementById(choiceTextAreas).value = jsonObjArr[j].choice3;
 
-       
+
                 } else if (k == 4) {
                     document.getElementById(choiceTextAreas).value = jsonObjArr[j].choice4;
                 }
- 
+
                 disableTextArea(choiceTextAreas);
             }
 
-        }else if(Object.keys(jsonObjArr[j]).length === 6){
-            
-     
+        } else if (Object.keys(jsonObjArr[j]).length === 6) {
+
+
             let numOfChoices = 3;
 
-  
+
             for (k = 1; k <= numOfChoices; k++) {
                 let choiceTextAreas = "question" + i + "choiceTextArea" + k;
-         
+
                 if (k == 1) {
-                    document.getElementById(choiceTextAreas).value = jsonObjArr[j].choice1; 
-                    
-       
+                    document.getElementById(choiceTextAreas).value = jsonObjArr[j].choice1;
+
+
                 } else if (k == 2) {
                     document.getElementById(choiceTextAreas).value = jsonObjArr[j].choice2;
-                
-           
+
+
                 } else if (k == 3) {
                     document.getElementById(choiceTextAreas).value = jsonObjArr[j].choice3;
                 }
-        
+
                 disableTextArea(choiceTextAreas);
             }
-            
-        //if the question has 2 answer choices
-        }else if (Object.keys(jsonObjArr[j]).length === 5){
+
+            //if the question has 2 answer choices
+        } else if (Object.keys(jsonObjArr[j]).length === 5) {
             let numOfChoices = 2;
             for (k = 1; k <= numOfChoices; k++) {
-                let choiceTextAreas = "question" + i + "choiceTextArea" + k;   
+                let choiceTextAreas = "question" + i + "choiceTextArea" + k;
                 if (k == 1) {
                     document.getElementById(choiceTextAreas).value = jsonObjArr[j].choice1;
-            
-                }else if (k == 2) {
+
+                } else if (k == 2) {
                     document.getElementById(choiceTextAreas).value = jsonObjArr[j].choice2;
-                } 
+                }
                 disableTextArea(choiceTextAreas);
             }
         }
@@ -301,9 +301,9 @@ function disableTextArea(name) {
  * Function for submit button
  */
 function submit() {
- 
+
     if (score != -1) {
-  
+
         let counter = questionsArray.length;
         answerKey(counter, questionsArray);
         displayScore();
@@ -318,12 +318,12 @@ function answerKey(numOfQ, array) {
         let j = i - 1;
         let questionTextArea = "question" + i + "TextArea";
         disableTextArea(questionTextArea);
-        if(Object.keys(array[j]).length === 7){
+        if (Object.keys(array[j]).length === 7) {
             let numOfChoices = 4;
             for (k = 1; k <= numOfChoices; k++) {
 
                 let choiceTextAreas = "question" + i + "choiceTextArea" + k;
-        
+
                 let choiceRadioButton = "question" + i + "choice" + k;
                 // highlights correct answer green
                 if (document.getElementById(choiceTextAreas).value == array[j].answer) {
@@ -334,43 +334,43 @@ function answerKey(numOfQ, array) {
                     if (k == 1) {
                         if (array[j].choice1 == array[j].answer) {
                             score++;
-                  
+
                         } else {
-                        
+
                             document.getElementById(choiceTextAreas).style.backgroundColor = "red";
-                
+
                             document.getElementById(choiceTextAreas).style.color = "white";
                         }
-              
+
                     } else if (k == 2) {
-                     
+
                         if (array[j].choice2 == array[j].answer) {
-                   
+
                             score++;
-                        
+
                         } else {
-                    
+
                             document.getElementById(choiceTextAreas).style.backgroundColor = "red";
                             // changes font color to white
                             document.getElementById(choiceTextAreas).style.color = "white";
                         }
-                    // 3rd choice
+                        // 3rd choice
                     } else if (k == 3) {
-                
+
                         if (array[j].choice3 == array[j].answer) {
-                     
+
                             score++;
-                 
+
                         } else {
-                       
+
                             document.getElementById(choiceTextAreas).style.backgroundColor = "red";
-                          
+
                             document.getElementById(choiceTextAreas).style.color = "white";
                         }
-                    // 4th choice
+                        // 4th choice
                     } else if (k == 4) {
-                        if (array[j].choice4 == array[j].answer) {           
-                            score++;     
+                        if (array[j].choice4 == array[j].answer) {
+                            score++;
                         } else {
                             document.getElementById(choiceTextAreas).style.backgroundColor = "red";
                             document.getElementById(choiceTextAreas).style.color = "white";
@@ -381,11 +381,11 @@ function answerKey(numOfQ, array) {
                 disableTextArea(choiceTextAreas);
                 disableTextArea(choiceRadioButton);
             }
-        }else if(Object.keys(array[j]).length === 6){
+        } else if (Object.keys(array[j]).length === 6) {
 
             let numOfChoices = 3;
             for (k = 1; k <= numOfChoices; k++) {
-       
+
                 let choiceTextAreas = "question" + i + "choiceTextArea" + k;
                 let choiceRadioButton = "question" + i + "choice" + k;
                 if (document.getElementById(choiceTextAreas).value == array[j].answer) {
@@ -393,16 +393,16 @@ function answerKey(numOfQ, array) {
                     document.getElementById(choiceTextAreas).style.color = "white";
                 }
 
-    
+
                 if (document.getElementById(choiceRadioButton).checked == true) {
                     // 1st choice
                     if (k == 1) {
-              
+
                         if (array[j].choice1 == array[j].answer) {
-                 
+
                             score++;
-           
-                        } else {           
+
+                        } else {
                             document.getElementById(choiceTextAreas).style.backgroundColor = "red";
                             document.getElementById(choiceTextAreas).style.color = "white";
                         }
@@ -410,30 +410,30 @@ function answerKey(numOfQ, array) {
                     } else if (k == 2) {
                         if (array[j].choice2 == array[j].answer) {
                             score++;
-                   
+
                         } else {
                             document.getElementById(choiceTextAreas).style.backgroundColor = "red";
                             document.getElementById(choiceTextAreas).style.color = "white";
                         }
-          
+
                     } else if (k == 3) {
-      
+
                         if (array[j].choice3 == array[j].answer) {
-                  
+
                             score++;
-                    
-                        } else {                      
+
+                        } else {
                             document.getElementById(choiceTextAreas).style.backgroundColor = "red";
                             document.getElementById(choiceTextAreas).style.color = "white";
                         }
-                    } 
+                    }
                 }
 
                 disableTextArea(choiceTextAreas);
                 disableTextArea(choiceRadioButton);
             }
 
-        }else if(Object.keys(array[j]).length === 5){
+        } else if (Object.keys(array[j]).length === 5) {
 
             let numOfChoices = 2;
             for (k = 1; k <= numOfChoices; k++) {
@@ -456,16 +456,16 @@ function answerKey(numOfQ, array) {
                         }
 
                     } else if (k == 2) {
-   
+
                         if (array[j].choice2 == array[j].answer) {
 
                             score++;
-                 
-                        } else {           
+
+                        } else {
                             document.getElementById(choiceTextAreas).style.backgroundColor = "red";
                             document.getElementById(choiceTextAreas).style.color = "white";
                         }
-                    } 
+                    }
                 }
                 disableTextArea(choiceTextAreas);
                 disableTextArea(choiceRadioButton);
@@ -488,4 +488,3 @@ function displayScore() {
     alert("Quiz Mark: " + score + " / " + questionsArray.length);
     score = -1;
 }
-

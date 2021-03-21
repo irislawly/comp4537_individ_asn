@@ -27,10 +27,11 @@ ul {
     height: 40px;
     width: 250px;
 }
- .classTextArea {
+ .questTextArea {
     margin: 10px;
     height: 50px;
     width: 300px;
+
 }
 .question {
     font-weight: bold;
