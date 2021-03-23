@@ -319,6 +319,9 @@ app.listen(PORT, (err) => {
     console.log("Listening to port", PORT);
 });
 
+/*
+Inserts query for sql
+ */
 function insert(answerQuery, ind , answerNumber ,  choice , answerCheck ){
     answerQuery = 'INSERT INTO option (questionID, answerID, answerOption, answerCorrect) values (' + ind + ',' + answerNumber + ',"' + choice + '",' + answerCheck + ')';
     db.query(answerQuery,
@@ -330,6 +333,9 @@ function insert(answerQuery, ind , answerNumber ,  choice , answerCheck ){
     });
 }
 
+/*
+Helper function for update
+*/
 function update(cho, ans, questionNum, correctAnswer, ind){
     if(cho === ans){
         correctAnswer = 1;
@@ -340,6 +346,9 @@ function update(cho, ans, questionNum, correctAnswer, ind){
     
 }
 
+/*
+Answer checker function helper for insert/update functions.
+*/
 function checkAns(ans, cho){
     if(ans === cho)
     {

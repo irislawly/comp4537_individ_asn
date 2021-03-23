@@ -8,40 +8,44 @@ const PUT = "PUT";
 const POST = "POST";
 
 let optionCount = 1;
-let questionsArray = [];
+let questionsArr = [];
 
 let templateStatus = false;
 //onload info when new questions added
 let onloadData = false;
 
+/*
+Begins loading the administrator page.
+*/
 
 function load() {
 
     getAllQuestions();
     setTimeout(function () {
-        if (questionsArray != null && questionsArray.length > 0) {
+        if (questionsArr != null && questionsArr.length > 0) {
+
+            let counter = questionsArr.length;
             onloadData = true;
-            let counter = questionsArray.length;
             count = 1;
 
             while (count <= counter) {
 
                 addQuestion();
 
-                if (Object.keys(questionsArray[count - 2]).length === 6) {
+                if (Object.keys(questionsArr[count - 2]).length === 6) {
 
                     onloadData = false;
                     addChoice();
                     onloadData = true;
 
-                } else if (Object.keys(questionsArray[count - 2]).length === 7) {
+                } else if (Object.keys(questionsArr[count - 2]).length === 7) {
                     onloadData = false;
                     addChoice();
                     addChoice();
                     onloadData = true;
                 }
             }
-            loadQuestions(counter, questionsArray);
+            loadQuestions(counter, questionsArr);
 
             templateStatus = false;
         }
@@ -49,6 +53,9 @@ function load() {
 }
 
 
+/*
+Loads up the questions onto the admin page
+ */
 function loadQuestions(qSize, jsonObjArr) {
 
     for (i = 1; i <= qSize; i++) {
@@ -159,9 +166,11 @@ function loadQuestions(qSize, jsonObjArr) {
     }
 }
 
-
+/**
+ * Adds question template format to page.
+ */
 function addQuest() {
-    let temp = questionsArray.length + 2;
+    let temp = questionsArr.length + 2;
     if (count == temp) {
         push();
     }
@@ -173,7 +182,9 @@ function addQuest() {
     onloadData = false;
 }
 
-//Push object
+/**
+ * Pushes page
+ */
 function push() {
     //declares variables
     let idRadButt = "";
@@ -228,15 +239,12 @@ function push() {
                 answer: document.getElementById(idSelectChoice).value
             };
         }
-        questionsArray.push(quest);
+        questionsArr.push(quest);
     }
 }
 
 /*
-************************************
-*******ADDQUESTION FUNCTION*********
-************************************
-This function creates the skeleton template for new question(s)
+Adds question format for nnext question.
 */
 function addQuestion() {
 
@@ -309,10 +317,10 @@ Store object into database.
 */
 function storeObject() {
     if (count >= 1) {
-        for (let ind = 0; ind < questionsArray.length; ind++) {
+        for (let ind = 0; ind < questionsArr.length; ind++) {
             xhttp.open(POST, endPointRoot + "question", true);
             xhttp.setRequestHeader("Content-type", "application/json");
-            xhttp.send(JSON.stringify(questionsArray[ind]));
+            xhttp.send(JSON.stringify(questionsArr[ind]));
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     console.log("looks like client side is working");
@@ -341,7 +349,7 @@ function getAllQuestions() {
             q.then((dbQuestions) => {
                 console.log('Retrieved');
                 for (let ind = 0; ind < dbQuestions.length; ind++) {
-                    questionsArray.push(dbQuestions[ind]);
+                    questionsArr.push(dbQuestions[ind]);
                 }
             }).catch((dbQuestions) => {
                 console.log('Error');
@@ -445,15 +453,15 @@ function updateObject() {
     let quest = "";
     let placeholderArray = []
 
-    for (let ind = 0; ind < questionsArray.length; ind++) {
-        placeholderArray.push(Object.keys(questionsArray[ind]).length);
+    for (let ind = 0; ind < questionsArr.length; ind++) {
+        placeholderArray.push(Object.keys(questionsArr[ind]).length);
     }
 
 
-    let questionSize = questionsArray.length;
+    let questionSize = questionsArr.length;
 
-    while (questionsArray.length > 0) {
-        questionsArray.pop();
+    while (questionsArr.length > 0) {
+        questionsArr.pop();
     }
 
     for (let ind = 0; ind < questionSize; ind++) {
@@ -520,18 +528,18 @@ function updateObject() {
                 answer: document.getElementById(idSelectChoice).value
             };
         }
-        questionsArray.push(quest);
+        questionsArr.push(quest);
     }
 
     /*
     Make sure to send one per new question
     */
     let xhttpEach = [];
-    for (let ind = 0; ind < questionsArray.length; ind++) {
+    for (let ind = 0; ind < questionsArr.length; ind++) {
         xhttpEach[ind] = new XMLHttpRequest();
         xhttpEach[ind].open(PUT, endPointRoot + "update", true);
         xhttpEach[ind].setRequestHeader("Content-type", "application/json");
-        xhttpEach[ind].send(JSON.stringify(questionsArray[ind]));
+        xhttpEach[ind].send(JSON.stringify(questionsArr[ind]));
         xhttpEach[ind].onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 console.log("Put on the client side is working");
